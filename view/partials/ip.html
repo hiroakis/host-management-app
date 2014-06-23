@@ -1,0 +1,48 @@
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+          <h1 class="sub-header">IP address</h1>
+          <div class="table-responsive" ng-controller="IPController">
+            <button class="btn btn-primary" ng-click="add()">Add</button>
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>IP</th>
+                  <th>Used?</th>
+                  <th>Operation</th>
+                </tr>
+              </thead>
+              <tbody ng-repeat="ipaddr in ipaddrs  | filter:searchItem">
+                <tr>
+                  <td>{{$index+1}}</td>
+                  <td>
+                    <!-- editable username (text with validation) -->
+                    <span editable-text="ipaddr.ip" e-name="ip" e-form="rowform" onbeforesave="checkIP($data, ipaddr.ip)" e-required>
+                    {{ipaddr.ip}}
+                    </span>
+                  </td>
+                  <td>
+                    {{ipaddr.is_used}}
+                  </td>
+                  <!--
+                  <td ng-switch="ipaddr.is_used">
+                    <div ng-switch-when="0">False</div>
+                    <div ng-switch-when="1">True</div>
+                  </td>
+                  -->
+                  <td>
+                    <!-- form -->
+                    <form editable-form name="rowform" onbeforesave="save($index, ipaddr.ip, $data)" ng-show="rowform.$visible" class="form-buttons form-inline" shown="inserted == ipaddr">
+                      <button type="submit" ng-disabled="rowform.$waiting" class="btn btn-info">Save</button>
+                      <button type="button" ng-disabled="rowform.$waiting" class="btn btn-default" ng-click="rowform.$cancel()">Cancel</button>
+                    </form>
+                    <div class="buttons" ng-show="!rowform.$visible">
+                      <button class="btn btn-info" ng-click="rowform.$show()">Edit</button>
+                      <button class="btn btn-danger" ng-click="remove($index)">Remove</button>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+

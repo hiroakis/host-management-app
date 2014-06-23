@@ -1,0 +1,10 @@
+__pycache__
+vendor
+.python-version
+*.bk
+*.bk2
+.coverage
+nginx.conf
+mime.types
+access.log
+init_data.sh

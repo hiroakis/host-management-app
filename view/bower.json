@@ -1,0 +1,25 @@
+{
+  "name": "srvadm",
+  "version": "0.0.1",
+  "authors": [
+    "Hiroaki Sano"
+  ],
+  "license": "MIT",
+  "homepage": "http://github.com/hiroakis",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "srvadm/static/vendor",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.2.14",
+    "angular-resource": "~1.2.14",
+    "bootstrap": "~3.1.1",
+    "angular-xeditable": "~0.1.8",
+    "angular-route": "~1.2.18",
+    "ui.bootstrap": "~0.11.0"
+  }
+}

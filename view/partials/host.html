@@ -1,0 +1,49 @@
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+          <h1 class="sub-header">Host</h1>
+          <div class="table-responsive" ng-controller="HostController">
+            <button class="btn btn-primary" ng-click="add()">Add</button>
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Host</th>
+                  <th>IP</th>
+                  <th>Role</th>
+                  <th>Operation</th>
+                </tr>
+              </thead>
+              <tbody ng-repeat="host in hosts | filter:searchItem">
+                <tr>
+                  <td>{{$index+1}}</td>
+                  <td>
+                    <!-- editable username (text with validation) -->
+                    <span editable-text="host.host_name" e-name="host_name" e-form="rowform" e-required>
+                    {{host.host_name}}
+                    </span>
+                  </td>
+                  <td>
+                    <span editable-select="host.ip" e-name="ip" onshow="loadAvailableIP()" e-form="rowform" e-ng-options="ipaddr for ipaddr in ipaddrs">
+                    {{host.ip}}
+                    </span>
+                  </td>
+                  <td>
+                    <span editable-select="host.role" e-multiple e-name="role" onshow="loadRole()" e-form="rowform" e-ng-options="role for role in roles">
+                    {{host.role}}
+                    </span>
+                  </td>
+                  <td>
+                    <!-- form -->
+                    <form editable-form name="rowform" onbeforesave="save($index, host.host_name, host.ip, host.relo_ip, host.role, $data)" ng-show="rowform.$visible" class="form-buttons form-inline" shown="inserted == host">
+                      <button type="submit" ng-disabled="rowform.$waiting" class="btn btn-info">Save</button>
+                      <button type="button" ng-disabled="rowform.$waiting" class="btn btn-default" ng-click="rowform.$cancel()">Cancel</button>
+                    </form>
+                    <div class="buttons" ng-show="!rowform.$visible">
+                      <button class="btn btn-info" ng-click="rowform.$show()">Edit</button>
+                      <button class="btn btn-danger" ng-click="remove($index)">Delete</button>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
