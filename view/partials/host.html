@@ -33,13 +33,13 @@
                   </td>
                   <td>
                     <!-- form -->
-                    <form editable-form name="rowform" onbeforesave="save($index, host.host_name, host.ip, host.relo_ip, host.role, $data)" ng-show="rowform.$visible" class="form-buttons form-inline" shown="inserted == host">
+                    <form editable-form name="rowform" onbeforesave="save(hosts.indexOf(host), host.host_name, host.ip, host.relo_ip, host.role, $data)" ng-show="rowform.$visible" class="form-buttons form-inline" shown="inserted == host">
                       <button type="submit" ng-disabled="rowform.$waiting" class="btn btn-info">Save</button>
                       <button type="button" ng-disabled="rowform.$waiting" class="btn btn-default" ng-click="rowform.$cancel()">Cancel</button>
                     </form>
                     <div class="buttons" ng-show="!rowform.$visible">
                       <button class="btn btn-info" ng-click="rowform.$show()">Edit</button>
-                      <button class="btn btn-danger" ng-click="remove($index)">Delete</button>
+                      <button class="btn btn-danger" ng-click="remove(hosts.indexOf(host))">Delete</button>
                     </div>
                   </td>
                 </tr>

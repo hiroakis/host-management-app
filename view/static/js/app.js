@@ -16,7 +16,7 @@ angular.module('app', ['ngRoute', 'xeditable'])
                 controller: 'HostController'
             })
             .otherwise({
-                redirectTo: '/'
+                redirectTo: '/host'
             });
 
     }).controller('IPController', function($scope, AppService){

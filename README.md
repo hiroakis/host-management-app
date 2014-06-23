@@ -15,6 +15,7 @@ cd view
 bower install
 ```
 
+
 ### httpd
 
 Move view directory to document root on your httpd and edit view/static/js/app.js following line.
@@ -35,13 +36,21 @@ Install MySQL and edit srvadm/config.py
 SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://srv:srv@localhost/srv?charset=utf8'
 ```
 
-initialize.
+insert sample data
 
 ```
-python manage.py init
+mysql -uroot -e "create database srv"
+mysql -uroot -e "grant all privileges on srv.* to 'srv'@'localhost' identified by 'srv';
+sh init.sh
 ```
 
-# License
+## start application
+
+```
+python manage.py run
+```
+
+## License
 
 MIT.
 

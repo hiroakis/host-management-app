@@ -31,13 +31,13 @@
                   -->
                   <td>
                     <!-- form -->
-                    <form editable-form name="rowform" onbeforesave="save($index, ipaddr.ip, $data)" ng-show="rowform.$visible" class="form-buttons form-inline" shown="inserted == ipaddr">
+                    <form editable-form name="rowform" onbeforesave="save(ipaddrs.indexOf(ipaddr), ipaddr.ip, $data)" ng-show="rowform.$visible" class="form-buttons form-inline" shown="inserted == ipaddr">
                       <button type="submit" ng-disabled="rowform.$waiting" class="btn btn-info">Save</button>
                       <button type="button" ng-disabled="rowform.$waiting" class="btn btn-default" ng-click="rowform.$cancel()">Cancel</button>
                     </form>
                     <div class="buttons" ng-show="!rowform.$visible">
                       <button class="btn btn-info" ng-click="rowform.$show()">Edit</button>
-                      <button class="btn btn-danger" ng-click="remove($index)">Remove</button>
+                      <button class="btn btn-danger" ng-click="remove(ipaddrs.indexOf(ipaddr))">Remove</button>
                     </div>
                   </td>
                 </tr>

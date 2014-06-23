@@ -21,13 +21,13 @@
                   </td>
                   <td>
                     <!-- form -->
-                    <form editable-form name="rowform" onbeforesave="save($index, role.role, $data)" ng-show="rowform.$visible" class="form-buttons form-inline" shown="inserted == role">
+                    <form editable-form name="rowform" onbeforesave="save(roles.indexOf(role), role.role, $data)" ng-show="rowform.$visible" class="form-buttons form-inline" shown="inserted == role">
                       <button type="submit" ng-disabled="rowform.$waiting" class="btn btn-info">Save</button>
                       <button type="button" ng-disabled="rowform.$waiting" class="btn btn-default" ng-click="rowform.$cancel()">Cancel</button>
                     </form>
                     <div class="buttons" ng-show="!rowform.$visible">
                       <button class="btn btn-info" ng-click="rowform.$show()">Edit</button>
-                      <button class="btn btn-danger" ng-click="remove($index)">Remove</button>
+                      <button class="btn btn-danger" ng-click="remove(roles.indexOf(role))">Remove</button>
                     </div>
                   </td>
                 </tr>

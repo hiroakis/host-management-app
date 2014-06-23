@@ -76,6 +76,7 @@ class Host(db.Model):
         primary_key=True,
         autoincrement=True)
     host_name = Column('host_name', VARCHAR(length=64),
+        unique=True,
         nullable=True)
     ip = Column('ip', VARCHAR(length=64),
         ForeignKey('ip.ip', onupdate='cascade'))
