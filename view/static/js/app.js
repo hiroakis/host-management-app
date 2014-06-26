@@ -36,7 +36,6 @@ angular.module('app', ['ngRoute', 'xeditable'])
             }
             $scope.ipaddrs = res.result;
         }).error(function(data, status, headers, config){
-            alert('could not get data from api.');
         });
  
         // add
@@ -83,7 +82,6 @@ angular.module('app', ['ngRoute', 'xeditable'])
         AppService.get(url).success(function(res){
             $scope.roles = res.result;
         }).error(function(data, status, headers, config){
-            alert('could not get data from api.');
         });
  
         // add
@@ -126,13 +124,11 @@ angular.module('app', ['ngRoute', 'xeditable'])
         $scope.hosts = [];
         $scope.ipaddrs = [];
         $scope.roles = [];
-        $scope.relo_ips = [];
 
         // get all
         AppService.get(url).success(function(res){
             $scope.hosts = res.result;
         }).error(function(data, status, headers, config){
-            alert('could not get data from api.');
         });
  
         // add
@@ -140,14 +136,13 @@ angular.module('app', ['ngRoute', 'xeditable'])
             $scope.inserted = {
                 host_name: '',
                 ip: '',
-                relo_ip: [],
                 role: [],
             };
             $scope.hosts.push($scope.inserted);
         };
      
         // update
-        $scope.save = function(index, targetHost, ip, relo, role, dataPosted){
+        $scope.save = function(index, targetHost, dataPosted){
            AppService.save(url, targetHost, dataPosted).success(function(){
 
            }).error(function(data, status, headers, config){
