@@ -8,7 +8,7 @@ This project is created for my angular.js study :)
 ### This application
 
 ```
-git clone https://github.com/hiroakis/host-management-tools.git
+git clone https://github.com/hiroakis/host-management-app.git
 cd host-management-app
 pip install -r requirements.txt
 cd view
