@@ -312,10 +312,11 @@ def update_host(old_host_name):
         host.role = [RoleMap(role_name=role_name) for role_name in req['role']]
         db.session.add(host)
 
-        ip = IP.get_one(db.session.query, req['ip'])
-        ip.is_used = 1
-        ip = IP.get_one(db.session.query, old_ip)
-        ip.is_used = 0
+        if req['ip'] != old_ip:
+            ip = IP.get_one(db.session.query, req['ip'])
+            ip.is_used = 1
+            ip = IP.get_one(db.session.query, old_ip)
+            ip.is_used = 0
 
         db.session.commit()
     except Exception as e:
