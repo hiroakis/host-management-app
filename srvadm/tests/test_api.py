@@ -432,8 +432,8 @@ class TestApi(TestApiBase):
 
     # Host
     def test_list_host(self):
-        expected = dict(result=['web01', 'web02', 'web03',\
-                'db01', 'db02', 'db03', 'mem01', 'vip01'])
+        expected = dict(result=['db01', 'db02', 'db03',\
+                'mem01', 'vip01','web01', 'web02', 'web03'])
         self.create_test_ip_data()
         self.create_test_role_data()
         self.create_test_host_data()

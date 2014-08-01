@@ -1,6 +1,6 @@
 var api = 'http://localhost:8080';
 
-angular.module('app', ['ngRoute', 'xeditable'])
+angular.module('app', ['ngRoute', 'xeditable', 'ui.bootstrap'])
     .config(function($routeProvider){
         $routeProvider
             .when('/ip', {
@@ -19,7 +19,7 @@ angular.module('app', ['ngRoute', 'xeditable'])
                 redirectTo: '/host'
             });
 
-    }).controller('IPController', function($scope, AppService){
+    }).controller('IPController', function($scope, AppService, DialogService){
  
         var url = api + '/api/ip';
  
@@ -36,6 +36,8 @@ angular.module('app', ['ngRoute', 'xeditable'])
             }
             $scope.ipaddrs = res.result;
         }).error(function(data, status, headers, config){
+            var message = 'Could not get data from api. HTTP status: ' + status;
+            DialogService.showErrorDialog($scope, message);
         });
  
         // add
@@ -54,25 +56,33 @@ angular.module('app', ['ngRoute', 'xeditable'])
            }).error(function(data, status, headers, config){
                 if (config.method == 'POST') {
                    $scope.ipaddrs.pop($scope.inserted);
-                   alert('could not add.');
+                   var message = 'Could not add';
+                   DialogService.showErrorDialog($scope, message);
                 } else if(config.method == 'PUT') {
                    $scope.ipaddrs[index].ip = ipaddr;
-                   alert('could not update.');
+                   var message = 'Could not update';
+                   DialogService.showErrorDialog($scope, message);
                 }
                 
            });
         };
      
+        // confirm
+        $scope.confirmDelete = function(index){
+            DialogService.showDeleteDialog($scope, index, $scope.ipaddrs[index].ip);
+        };
+
         // remove
         $scope.remove = function(index){
             AppService.remove(url, $scope.ipaddrs[index].ip).success(function(){
                 $scope.ipaddrs.splice(index, 1);
             }).error(function(data){
-                   alert('could not delete.');
+                var message = 'Could not delete ip: ' + $scope.ipaddrs[index].ip + '. It is used.';
+                DialogService.showErrorDialog($scope, message);
             });
         };
  
-     }).controller('RoleController', function($scope, AppService){
+     }).controller('RoleController', function($scope, AppService, DialogService){
 
         var url = api + '/api/role';
  
@@ -82,6 +92,8 @@ angular.module('app', ['ngRoute', 'xeditable'])
         AppService.get(url).success(function(res){
             $scope.roles = res.result;
         }).error(function(data, status, headers, config){
+            var message = 'Could not get data from api. HTTP status: ' + status;
+            DialogService.showErrorDialog($scope, message);
         });
  
         // add
@@ -99,25 +111,33 @@ angular.module('app', ['ngRoute', 'xeditable'])
            }).error(function(data, status, headers, config){
                 if (config.method == 'POST') {
                    $scope.roles.pop($scope.inserted);
-                   alert('could not add.');
+                   var message = 'Could not add';
+                   DialogService.showErrorDialog($scope, message);
                 } else if(config.method == 'PUT') {
                    $scope.roles[index].role = role;
-                   alert('could not update.');
+                   var message = 'Could not update';
+                   DialogService.showErrorDialog($scope, message);
                 }
                 
            });
         };
      
+        // confirm
+        $scope.confirmDelete = function(index){
+            DialogService.showDeleteDialog($scope, index, $scope.roles[index].role);
+        };
+
         // remove
         $scope.remove = function(index){
             AppService.remove(url, $scope.roles[index].role).success(function(){
                 $scope.roles.splice(index, 1);
             }).error(function(data){
-                   alert('could not delete.');
+                var message = 'Could not delete role: ' + $scope.roles[index].role + '. It may be used.';
+                DialogService.showErrorDialog($scope, message);
             });
         };
  
-    }).controller('HostController', function($scope, AppService){
+    }).controller('HostController', function($scope, AppService, DialogService){
 
         var url = api + '/api/host'
 
@@ -129,6 +149,8 @@ angular.module('app', ['ngRoute', 'xeditable'])
         AppService.get(url).success(function(res){
             $scope.hosts = res.result;
         }).error(function(data, status, headers, config){
+            var message = 'Could not get data from api. HTTP status: ' + status;
+            DialogService.showErrorDialog($scope, message);
         });
  
         // add
@@ -148,21 +170,29 @@ angular.module('app', ['ngRoute', 'xeditable'])
            }).error(function(data, status, headers, config){
                 if (config.method == 'POST') {
                     $scope.hosts.pop($scope.inserted);
-                    alert('could not add.');
+                    var message = 'Could not add';
+                    DialogService.showErrorDialog($scope, message);
                 } else if(config.method == 'PUT') {
-                    $scope.hosts[index].hostname = hostname;
-                    alert('could not update.');
+                    $scope.hosts[index].host_name = targetHost;
+                    var message = 'Could not update';
+                    DialogService.showErrorDialog($scope, message);
                 }
-                
            });
+        };
+
+        // confirm
+        $scope.confirmDelete = function(index){
+            DialogService.showDeleteDialog($scope, index, $scope.hosts[index].host_name);
         };
      
         // remove
         $scope.remove = function(index){
+
             AppService.remove(url, $scope.hosts[index].host_name).success(function(){
                 $scope.hosts.splice(index, 1);
             }).error(function(data){
-                alert('could not delete.');
+                var message = 'Could not delete host: ' + $scope.hosts[index].host_name;
+                DialogService.showErrorDialog($scope, message);
             });
         };
 
@@ -198,5 +228,19 @@ angular.module('app', ['ngRoute', 'xeditable'])
 
         return appService;
  
+    }).factory('DialogService', function($modal){
+        var dialogService = {
+            showDeleteDialog: function(scope, index, message){
+                scope.index = index;
+                scope.message = message;
+                $modal.open({templateUrl: "modal/delete.html", scope: scope});
+            },
+            showErrorDialog: function(scope, message){
+                scope.message = message;
+                $modal.open({templateUrl: "modal/error.html", scope: scope});
+            }
+        };
+
+        return dialogService;
     });
 

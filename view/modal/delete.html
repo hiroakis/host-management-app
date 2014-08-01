@@ -1,0 +1,11 @@
+<div class="modal-header">
+  <button type="button" class="close" ng-click="$dismiss()" aria-hidden="true">x</button>
+  <h3>Confirmation</h3>
+</div>
+<div class="modal-body">
+  Do you delete <strong>{{message}}</strong> ?
+</div>
+<div class="modal-footer">
+  <button class="btn btn-danger" ng-click="$close(remove(index))">Delete</button>
+  <button class="btn btn-cancel" ng-click="$dismiss()">Cancel</button>
+</div>
