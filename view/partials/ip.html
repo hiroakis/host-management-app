@@ -37,7 +37,7 @@
                     </form>
                     <div class="buttons" ng-show="!rowform.$visible">
                       <button class="btn btn-info" ng-click="rowform.$show()">Edit</button>
-                      <button class="btn btn-danger" ng-click="remove(ipaddrs.indexOf(ipaddr))">Remove</button>
+                      <button class="btn btn-danger" ng-click="confirmDelete(ipaddrs.indexOf(ipaddr))">Delete</button>
                     </div>
                   </td>
                 </tr>

@@ -90,7 +90,7 @@ class Host(db.Model):
 
     @classmethod
     def get_all(cls, query):
-        return query(cls).all()
+        return query(cls).order_by(cls.host_name).all()
 
     @classmethod
     def get_one_by_ip(cls, query, ip):
